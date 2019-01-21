@@ -1,8 +1,11 @@
 package com.example.aheitzm2.myapplication;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,12 +17,30 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener ,
+        HomeFragment.OnFragmentInteractionListener,
+        CreditFragment.OnFragmentInteractionListener,
+        DataFragment.OnFragmentInteractionListener,
+        MapFragment.OnFragmentInteractionListener,
+        CameraFragment.OnFragmentInteractionListener{
+
+    private FragmentManager fm = null;
+    private Fragment fragment = null;
+    private Fragment credit=null;
+    private Fragment data=null;
+    private Fragment map=null;
+    private Fragment camera=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fm = getSupportFragmentManager();
+        fragment = new HomeFragment();
+
+        fm.beginTransaction().replace(R.id.content_main,fragment).commit();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -79,21 +100,40 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_camera) {
-
-        } else if (id == R.id.nav_data) {
-
-        } else if (id == R.id.nav_map) {
-
-        } else if (id == R.id.nav_credits) {
-
+        switch (id){
+            case R.id.nav_home:
+                fragment = new HomeFragment();
+                fm.beginTransaction().replace(R.id.content_main,fragment).commit();
+                break;
+            case R.id.nav_camera:
+                camera = new CameraFragment();
+                fm.beginTransaction().replace(R.id.content_main,camera).commit();
+                break;
+            case R.id.nav_data:
+                data = new DataFragment();
+                fm.beginTransaction().replace(R.id.content_main,data).commit();
+                break;
+            case R.id.nav_map:
+                map = new MapFragment();
+                fm.beginTransaction().replace(R.id.content_main,map).commit();
+                break;
+            case R.id.nav_credits:
+                credit = new CreditFragment();
+                fm.beginTransaction().replace(R.id.content_main,credit).commit();
+                break;
+            default:
+                fragment = new HomeFragment();
+                fm.beginTransaction().replace(R.id.content_main,fragment).commit();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

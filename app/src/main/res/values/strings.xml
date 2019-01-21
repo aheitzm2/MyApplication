@@ -11,4 +11,11 @@
     <string name="data">Data</string>
     <string name="map">Map</string>
     <string name="credits">Credits</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Bienvenue sur la page d\'accueil !</string>
+    <string name="credit_content">Bienvenue sur la page de crédit !</string>
+    <string name="map_content">Bienvenue sur la carte !</string>
+    <string name="data_content">Bienvenue sur la page de données !</string>
+    <string name="camera_content">Bienvenue sur l\'appareil photo !</string>
 </resources>
